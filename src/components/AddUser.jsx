@@ -29,10 +29,6 @@ const AddUser = () => {
   // Redux state selectors
   const { isSuccess,isLoading, isError, message } = useSelector((state) => state.user);
 
-
-  if(isLoading){
-    <Spinner/>
-  }
   useEffect(() => {
     if (message) {
       if (isError) {
@@ -78,6 +74,10 @@ const AddUser = () => {
 
   return (
     <div className="bg-gray-900 text-white py-10 px-6 sm:px-10 md:px-20 lg:px-40 xl:px-80">
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
       <h2 className="text-3xl font-semibold mb-6">Add User</h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <input
@@ -150,6 +150,8 @@ const AddUser = () => {
           Add user
         </button>
       </form>
+      </>
+      )}
     </div>
   );
 };

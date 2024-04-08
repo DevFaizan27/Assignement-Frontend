@@ -6,8 +6,8 @@ export const getUsers = createAsyncThunk(
   'users/getAllUser',
   async ({ name, status, domain, gender,currentPage,limitPerPage}, thunkAPI) => {
     try {
-      // Construct the API URL with query parameters
-      let apiUrl = `http://localhost:5500/api/user/get-users?page=${currentPage}&limit=${limitPerPage}`;
+      // Construct the API URL with query parameters   
+      let apiUrl = `${import.meta.env.VITE_BASE_URL}/api/user/get-users?page=${currentPage}&limit=${limitPerPage}`;
 
       if (name) apiUrl += `&search=${name}`;
 
@@ -15,68 +15,66 @@ export const getUsers = createAsyncThunk(
       if (domain) apiUrl += `&domain=${domain}`;
       if (gender) apiUrl += `&gender=${gender}`;
 
-      const res = await axios.get(apiUrl);
-      console.log(res);
-      return res.data;
+      const response = await axios.get(apiUrl);
+      return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data.error);
     }
   }
 );
 
 
+//action to get user bu id
 export const getUserById=createAsyncThunk(
   'user/getuserById',
   async(id)=>{
     try {
-      const res=await axios.get(`http://localhost:5500/api/user/get-user-by-id/${id}`)
-      return res.data;
+      const response=await axios.get(`${import.meta.env.VITE_BASE_URL}/api/user/get-user-by-id/${id}`)
+      return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data)
+      return thunkAPI.rejectWithValue(error.response.data.error)
     }
   }
 )
 
 
-
+//delete user 
 export const deleteUserById=createAsyncThunk(
   'user/deleteUserById',
   async(id)=>{
     try {
-      const res=await axios.delete(`http://localhost:5500/api/user/delete-user/${id}`)
-      return res.data;
+      const response=await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/user/delete-user/${id}`)
+      return response.data;
     } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error.response.data)
+      return thunkAPI.rejectWithValue(error.response.data.error)
     }
   }
 )
 
 
+//add user
 export const addUser=createAsyncThunk(
   'user/addUser',
   async(formDataWithFiles,thunkAPI)=>{
       try {
-          const response=await axios.post(`http://localhost:5500/api/user/add-user`,formDataWithFiles,{ headers: {
+          const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/user/add-user`,formDataWithFiles,{ headers: {
               'Content-Type': 'multipart/form-data',
           }})
-          console.log(response.data.message);
-          return response.data;
-      } catch (error) {
-          return thunkAPI.rejectWithValue(error.response.data.error)
-      }
+          return response.data.message;
+        } catch (error) {
+          return thunkAPI.rejectWithValue(error.response.data.error);
+        }
   }
 )
 
+//edit user
 export const editUser=createAsyncThunk(
   'user/editUser',
   async({formDataWithFiles,id},thunkAPI)=>{
       try {
-        console.log(id);
-          const response=await axios.put(`http://localhost:5500/api/user/update-user/${id}`,formDataWithFiles,{ headers: {
+          const response=await axios.put(`${import.meta.env.VITE_BASE_URL}/api/user/update-user/${id}`,formDataWithFiles,{ headers: {
               'Content-Type': 'multipart/form-data',
           }})
-          console.log(response);
           return response.data.message;
       } catch (error) {
           return thunkAPI.rejectWithValue(error.response.data.error)

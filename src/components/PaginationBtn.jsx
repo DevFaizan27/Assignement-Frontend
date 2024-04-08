@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const PaginationBtn = ({currentPage,setCurrentPage,limitPerPage,getUsers}) => {
     
-console.log(setCurrentPage);
     // const dispatch = useDispatch();
 
   const { userDetails } = useSelector((state) => state.user);

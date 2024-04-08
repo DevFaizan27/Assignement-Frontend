@@ -7,26 +7,27 @@ export const getTeams=createAsyncThunk(
     'team/getTeams',
     async()=>{
       try {
-        const res=await axios.get(`http://localhost:5500/api/team/get-teams`)
-        return res.data;
+        const response=await axios.get(`${import.meta.env.VITE_BASE_URL}/api/team/get-teams`);
+        return response.data;
       } catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data)
+        return thunkAPI.rejectWithValue(error.response.data.error)
       }
     }
 )
 
-
+//create a new team
 export const createTeam = createAsyncThunk(
   'team/createTeam',
-  async ( domain, available , thunkAPI) => {
+  async(formsData, thunkAPI) => {
     try {
       // Make the API call to create a team
-      const response = await axios.post(`http://localhost:5500/api/team/create-team`, { domain, available });
-      // Return the response data
-      return response.data;
+      const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/api/team/create-team`,formsData,{headers:{
+        'Content-Type': 'multipart/form-data',
+      }});
+      return response.data.message;
     } catch (error) {
       // If an error occurs, reject the action with the error message
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data.error);
     }
   }
 );
@@ -37,9 +38,8 @@ export const getTeamById=createAsyncThunk(
     'team/getTeamById',
     async(id)=>{
       try {
-        const res=await axios.get(`http://localhost:5500/api/team/get-team/${id}`)
-        console.log(res);
-        return res.data;
+        const response=await axios.get(`${import.meta.env.VITE_BASE_URL}/api/team/get-team/${id}`)
+        return response.data;
       } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)
       }

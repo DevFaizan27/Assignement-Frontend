@@ -9,7 +9,6 @@ import UserCard from './UserCard.jsx';
 const TeamInfo = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    console.log(id);
 
     const { team, isLoading, isError, isSuccess, message } = useSelector((state) => state.team);
   
@@ -26,7 +25,7 @@ const TeamInfo = () => {
       }
   return (
     <div className="bg-[#32353F] min-h-screen w-full px-4 py-3 flex flex-col justify-center items-center">
-    <h2 className='text-gray-200 text-2xl font-bold'>{team?.team?.available?"Available ":"Unavailabe"}{team?.team?.domain} team</h2>
+    <h2 className='text-gray-200 text-2xl font-bold'>{team?.team?.available?"Available ":"Unavailabe "}{team?.team?.domain} team</h2>
     <div className="flex-grow mt-6 overflow-y-auto w-full">
 
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">

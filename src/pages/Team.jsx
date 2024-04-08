@@ -14,13 +14,13 @@ const Team = () => {
   }, [dispatch]);
 
   return (
-    <div className="bg-[#32353F] min-h-screen w-full p-2">
+    <div className="bg-[#32353F] min-h-screen w-full p-4 overflow-x-auto">
       <h1 className="text-2xl font-semibold text-gray-200 mb-4">Team Information</h1>
       {isLoading && <Spinner />}
       {isError && <p className="text-red-600">{message}</p>}
       {isSuccess && (
         <div className="bg-gray-800 rounded-sm overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-900">
+          <table className="min-w-full divide-y divide-gray-900 overflow-x-scroll">
             <thead className="bg-gray-900">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Team</th>

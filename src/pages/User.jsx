@@ -18,9 +18,7 @@ const User = () => {
   const dispatch = useDispatch();
   const { userDetails, isLoading, isError, isSuccess, message } = useSelector((state) => state.user);
 
-  console.log(domain);
-  console.log(status);
-  console.log(gender);
+
  
 
   useEffect(() => {
